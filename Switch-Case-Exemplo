@@ -1,0 +1,45 @@
+//Definicoes de LEDs e pinos
+#define LED1 8
+#define LED2 9
+
+//Cria variavel do tipo char chamada "valor"
+char valor;
+
+void setup() {
+  //Declara LEDs como saidas
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  //Inicia comunicacao serial em 9600
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  //Verifica se tem algum dado na serial
+  if (Serial.available()) {
+    //Le o dado enviado e armazena na variavel valor
+    valor = Serial.read();
+
+    //Testa a variavel valor
+    switch (valor) {
+      //Caso seja o numero 1
+      case '1':
+        //Ligue o LED1 e desligue o LED2
+        digitalWrite(LED1, HIGH);
+        digitalWrite(LED2, LOW);
+        break;
+        //Caso seja o numero 1
+      case '2':
+        //Ligue o LED2 e desligue o LED1
+        digitalWrite(LED1, LOW);
+        digitalWrite(LED2, HIGH);
+        break;
+        //Caso seja um numero diferente
+      default:
+        //Desligue todos LEDs
+        digitalWrite(LED1, LOW);
+        digitalWrite(LED2, LOW);
+        break;
+    }
+  }
+}
